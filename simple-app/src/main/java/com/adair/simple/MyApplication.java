@@ -2,7 +2,7 @@ package com.adair.simple;
 
 import android.app.Application;
 
-import com.adair.httpfactory.RequestFactory;
+import com.adair.httpfactory.RequestMethodFactory;
 
 /**
  * package：    com.adair.simple
@@ -15,6 +15,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        RequestFactory.init(OkHttpRequestManager.getInstance());
+        RequestMethodFactory.init(new OkHttpRequestMethod());
     }
 }
