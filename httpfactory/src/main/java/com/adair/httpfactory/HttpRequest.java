@@ -1,6 +1,5 @@
 package com.adair.httpfactory;
 
-import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.adair.httpfactory.callback.IEndCallback;
@@ -27,7 +26,6 @@ public class HttpRequest {
     private ISuccessCallback successCallback;//请求成功回调
     private IFailureCallback failureCallback;//请求失败回调
     private IEndCallback endCallback;//请求结束后的回调
-    private Looper handler;
     private HttpRequest() {
     }
 
@@ -35,7 +33,6 @@ public class HttpRequest {
         this.url = httpRequest.url;
         this.headers = httpRequest.headers;
         this.params = httpRequest.params;
-        handler = Looper.getMainLooper();
     }
 
     public String getUrl() {
