@@ -9,11 +9,38 @@ package com.adair.httpfactory;
  */
 public interface IRequestMethod {
 
+    /**
+     * get方法请求
+     *
+     * @param request 请求参数，包含（请求头，请求参数，请求回调）
+     */
     void get(HttpRequest request);
 
+    /**
+     * post方法请求
+     *
+     * @param request 请求参数，包含（请求头，请求参数，请求回调）
+     */
     void post(HttpRequest request);
 
+    /**
+     * put方法请求
+     *
+     * @param request 请求参数，包含（请求头，请求参数，请求回调）
+     */
     void put(HttpRequest request);
 
+    /**
+     * delete方法请求
+     *
+     * @param request 请求参数，包含（请求头，请求参数，请求回调）
+     */
     void delete(HttpRequest request);
+
+    /**
+     * 下载文件
+     *
+     * @param request 请求参数，包含（请求头，请求参数，请求回调）
+     */
+    void download(HttpRequest request);
 }

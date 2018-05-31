@@ -1,5 +1,7 @@
 package com.adair.httpfactory;
 
+import android.support.annotation.NonNull;
+
 /**
  * package：    com.adair.httpfactory
  * author：     XuShuai
@@ -12,7 +14,7 @@ public interface ICallback<T> {
 
     void onSuccess(T t);
 
-    void onFailure(Throwable throwable);
+    void onFailure(Throwable throwable, @NonNull Boolean isNetworkError);
 
     void onFinish();
 }

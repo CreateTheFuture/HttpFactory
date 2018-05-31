@@ -11,9 +11,12 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * package：    com.adair.simple
@@ -32,14 +35,13 @@ public class OkHttpRequestMethod implements IRequestMethod {
 
     @Override
     public void get(final HttpRequest request) {
-        if (request.getStartCallback() != null) {
-            request.getStartCallback().onStart();
+        if (request.getCallback() != null) {
+            request.getCallback().onStart();
         }
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象
         Request OkHttpRequest = new Request.Builder()
                 .url(request.getUrl())//请求接口。如果需要传参拼接到接口后面。
                 .build();//创建Request 对象
-
         client.newCall(OkHttpRequest).enqueue(new Callback() {
             @Override
             public void onFailure(final Call call, final IOException e) {
@@ -48,11 +50,11 @@ public class OkHttpRequestMethod implements IRequestMethod {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(request.getFailureCallback() !=null){
-                            request.getFailureCallback().onFailure(e,call);
+                        if (request.getCallback() != null) {
+                            request.getCallback().onFailure(e, false);
                         }
-                        if (request.getEndCallback() != null) {
-                            request.getEndCallback().onEnd();
+                        if (request.getCallback() != null) {
+                            request.getCallback().onFinish();
                         }
                     }
                 });
@@ -66,15 +68,15 @@ public class OkHttpRequestMethod implements IRequestMethod {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(request.getSuccessCallback() !=null){
+                        if (request.getCallback() != null) {
                             try {
-                                request.getSuccessCallback().onSuccess(response.body().string());
+                                request.getCallback().onSuccess(response.body().string());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-                        if (request.getEndCallback() != null) {
-                            request.getEndCallback().onEnd();
+                        if (request.getCallback() != null) {
+                            request.getCallback().onFinish();
                         }
                     }
                 });
@@ -85,13 +87,12 @@ public class OkHttpRequestMethod implements IRequestMethod {
 
     @Override
     public void post(HttpRequest request) {
-        if (request.getStartCallback() != null) {
-            request.getStartCallback().onStart();
+        if (request.getCallback() != null) {
+            request.getCallback().onStart();
         }
-        Log.e(TAG, "11111111111111");
 
-        if (request.getEndCallback() != null) {
-            request.getEndCallback().onEnd();
+        if (request.getCallback() != null) {
+            request.getCallback().onFinish();
         }
 
     }
@@ -103,6 +104,11 @@ public class OkHttpRequestMethod implements IRequestMethod {
 
     @Override
     public void delete(HttpRequest request) {
+
+    }
+
+    @Override
+    public void download(HttpRequest request) {
 
     }
 }
